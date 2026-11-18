@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="text-scale" content="scale">
+  <title>Encspect: an audio file analyzer</title>
+  <meta name="description" content="Encspect reports everything technically knowable about an audio file's structure: encoders and writers, bitrate behavior, VBR headers, tags and damage, each value pointing back to the bytes it came from.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="copy.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Encspect home">
+      <img class="brand-mark" src="favicon.svg" alt="" width="32" height="32">
+      <span>Encspect</span>
+    </a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#formats">Formats</a></li>
+        <li><a href="#download">Download</a></li>
+        <li><a href="https://github.com/smares/encspect">GitHub</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <h1 id="hero-title">See what is inside an audio file.</h1>
+      <p class="lead">Encspect reports everything technically knowable about an audio file's structure: the encoder and the software that wrote it, bitrate behavior, the bit reservoir, VBR headers, tags and damage. Every value it reports points back to the bytes it came from.</p>
+      <p class="actions">
+        <a class="button primary" href="https://github.com/smares/encspect/releases/latest">Download</a>
+        <a class="button" href="https://github.com/smares/encspect">Source on GitHub</a>
+      </p>
+      <p class="note">Free and open source under the MIT License. A graphical app and a command-line tool for Windows, macOS and Linux.</p>
+      <picture class="shot hero-shot">
+        <source media="(prefers-color-scheme: dark)" srcset="images/main-dark-1440.webp 1440w, images/main-dark-2880.webp 2880w" sizes="(max-width: 72rem) 100vw, 72rem" width="2880" height="1240">
+        <img src="images/main-light-1440.webp" srcset="images/main-light-1440.webp 1440w, images/main-light-2880.webp 2880w" sizes="(max-width: 72rem) 100vw, 72rem" width="2880" height="1240" fetchpriority="high" alt="Encspect's main window with a folder tree and a list of sixteen audio files with format, codec, bitrate, encoder and findings columns">
+      </picture>
+    </section>
+
+    <section id="features" aria-labelledby="features-title">
+      <h2 id="features-title">What it shows</h2>
+      <ul class="cards">
+        <li class="card">
+          <h3>Every value has a source</h3>
+          <p>Each field in the structure tree carries its byte offset and length, down to single bits, and the hex view shows the bytes it was read from.</p>
+        </li>
+        <li class="card">
+          <h3>Encoders and writers</h3>
+          <p>The encoder named by the stream's own evidence, the software that wrote the container, and where the two disagree.</p>
+        </li>
+        <li class="card">
+          <h3>Bitrate and coding</h3>
+          <p>Bitrate over time, the bit reservoir, VBR headers, stereo modes, block sizes and frame sizes, drawn as graphs.</p>
+        </li>
+        <li class="card">
+          <h3>Damage reported, not hidden</h3>
+          <p>Truncated, cut or corrupt files produce findings with a severity, each pointing at the node it concerns.</p>
+        </li>
+        <li class="card">
+          <h3>Checksums verified</h3>
+          <p>The CRCs and MD5 sums that formats store are checked, on the coded data and, where a decoder exists, on the decoded audio.</p>
+        </li>
+        <li class="card">
+          <h3>Measured audio</h3>
+          <p>Decoded audio gets its spectrum and spectral cutoff, spectrogram, waveform, levels, loudness after EBU R 128, and true peak.</p>
+        </li>
+      </ul>
+    </section>
+
+    <section class="gallery" aria-labelledby="gallery-title">
+      <h2 id="gallery-title">A closer look</h2>
+      <figure>
+        <picture class="shot">
+          <source media="(prefers-color-scheme: dark)" srcset="images/detail-dark-1280.webp 1280w, images/detail-dark-2560.webp 2560w" sizes="(max-width: 72rem) 100vw, 72rem" width="2560" height="1200">
+          <img src="images/detail-light-1280.webp" srcset="images/detail-light-1280.webp 1280w, images/detail-light-2560.webp 2560w" sizes="(max-width: 72rem) 100vw, 72rem" width="2560" height="1200" loading="lazy" alt="Encspect's detail window with three findings of an MP3 file, the structure tree and the hex view of the selected frame">
+        </picture>
+        <figcaption>The detail window: a file's findings, each pointing to the bytes it was read from in the structure tree and the hex view.</figcaption>
+      </figure>
+      <figure>
+        <picture class="shot">
+          <source media="(prefers-color-scheme: dark)" srcset="images/frame-map-dark-2560.webp" width="2560" height="1512">
+          <img src="images/frame-map-light-2560.webp" width="2560" height="1512" loading="lazy" alt="The Frame Map of a one-minute MP3 file with one square per frame colored by block type">
+        </picture>
+        <figcaption>The Frame Map: one square per frame, here the block types of every granule of a minute of joint stereo audio.</figcaption>
+      </figure>
+      <figure>
+        <picture class="shot">
+          <source media="(prefers-color-scheme: dark)" srcset="images/spectrogram-dark-1280.webp 1280w, images/spectrogram-dark-2560.webp 2560w" sizes="(max-width: 72rem) 100vw, 72rem" width="2560" height="1520">
+          <img src="images/spectrogram-light-1280.webp" srcset="images/spectrogram-light-1280.webp 1280w, images/spectrogram-light-2560.webp 2560w" sizes="(max-width: 72rem) 100vw, 72rem" width="2560" height="1520" loading="lazy" alt="The spectrogram of a decoded WAV file with a dashed line at its spectral cutoff of 16,150 Hz">
+        </picture>
+        <figcaption>The spectrogram of a decoded file, with its spectral cutoff marked at 16,150 Hz.</figcaption>
+      </figure>
+    </section>
+
+    <section id="formats" aria-labelledby="formats-title">
+      <h2 id="formats-title">Formats</h2>
+      <p class="section-lead">Each container is read at its own level, and each stream by its frames.</p>
+      <dl class="formats">
+        <div>
+          <dt>Lossy</dt>
+          <dd>MPEG audio (MP1, MP2, MP3), AAC including HE-AAC and xHE-AAC, Vorbis, Opus, Speex, Musepack, AC-3 and E-AC-3 with Dolby Atmos object audio, DTS, Windows Media Audio</dd>
+        </div>
+        <div>
+          <dt>Lossless</dt>
+          <dd>FLAC, WavPack, Monkey's Audio, TTA, Apple Lossless, Dolby TrueHD and MLP, DTS-HD Master Audio, Windows Media Audio Lossless, OptimFROG and TAK</dd>
+        </div>
+        <div>
+          <dt>Containers</dt>
+          <dd>MP4 and QuickTime, Matroska and WebM, Ogg, ASF, WAV with RF64 and BW64, Wave64, AIFF</dd>
+        </div>
+        <div>
+          <dt>Tags</dt>
+          <dd>ID3v1, ID3v2, APE, Lyrics3 and Vorbis comments</dd>
+        </div>
+      </dl>
+      <p><a href="https://github.com/smares/encspect/blob/main/docs/formats/README.md">What each format reads, in detail</a></p>
+    </section>
+
+    <section id="download" aria-labelledby="download-title">
+      <h2 id="download-title">Download</h2>
+      <p>Pre-release builds for Windows, macOS and Linux, on x64 and ARM64, are on the <a href="https://github.com/smares/encspect/releases/latest">latest release page</a>. They are not signed; see the release notes.</p>
+      <p>The command-line tool prints the structure tree of a file, or a JSON report:</p>
+      <figure class="code">
+        <figcaption id="cli-caption">Analyze a file, and measure its decoded audio</figcaption>
+        <div class="copyable">
+          <pre role="region" aria-labelledby="cli-caption" tabindex="0"><code id="cli-example">encspect song.mp3
+encspect --measure song.flac</code></pre>
+          <span class="copy">
+            <button type="button" class="copy-button" command="--copy" commandfor="cli-example" aria-label="Copy the commands">
+              <svg class="icon icon-copy" viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
+              <svg class="icon icon-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+            </button>
+            <span class="tip" role="status"></span>
+          </span>
+        </div>
+      </figure>
+      <p>Encspect analyzes audio; it does not play or convert it. <a href="https://github.com/smares/encspect/blob/main/docs/cli.md">Command-line documentation</a> · <a href="https://github.com/smares/encspect/blob/main/docs/gui.md">The graphical app</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Encspect is open source under the <a href="https://github.com/smares/encspect/blob/main/LICENSE">MIT License</a>. <a href="https://github.com/smares/encspect">Source, issues and plan on GitHub</a>.</p>
+  </footer>
+</body>
+</html>
