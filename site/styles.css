@@ -142,6 +142,10 @@ main > section,
   list-style: none;
 }
 
+.site-header {
+  position: relative;
+}
+
 .site-header nav a {
   color: var(--muted);
   font-weight: 500;
@@ -526,8 +530,179 @@ main > .page-head {
   max-inline-size: none;
 }
 
-@media (max-width: 36em) {
-  .site-header ul {
-    gap: 0.25rem 1rem;
+/* Header menu. Without JavaScript every link is listed and the buttons stay hidden; with it (class "js"),
+   Docs is a dropdown on wide screens and one Menu button holds everything on narrow ones. */
+.site-header nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  min-block-size: 2.75rem;
+  padding: 0 0.25rem;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.nav-button:hover,
+.nav-button[aria-expanded="true"],
+.nav-button[aria-current] {
+  color: var(--text);
+}
+
+.nav-button[aria-current] {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.nav-button .chevron {
+  inline-size: 0.8em;
+  block-size: 0.8em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: rotate 0.15s;
+}
+
+.nav-button[aria-expanded="true"] .chevron {
+  rotate: 180deg;
+}
+
+.nav-button .icon-bars {
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.sr-only {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.menu-toggle,
+.docs-toggle {
+  display: none;
+}
+
+.js .docs-toggle {
+  display: inline-flex;
+}
+
+.site-header .menu {
+  align-items: center;
+}
+
+.has-sub {
+  position: relative;
+}
+
+.sub {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sub li + li {
+  margin: 0;
+}
+
+@media (min-width: 43.76em) {
+  .js .docs-toggle[aria-expanded="false"] + .sub {
+    display: none;
+  }
+
+  .js .sub {
+    position: absolute;
+    inset-block-start: 100%;
+    inset-inline-start: -0.75rem;
+    z-index: 10;
+    display: block;
+    min-inline-size: 13rem;
+    padding: 0.4rem;
+    border: 1px solid var(--border);
+    border-radius: 0.6rem;
+    background: var(--raised);
+    box-shadow: 0 0.5rem 2rem rgb(0 0 0 / 0.18);
+  }
+
+  .js .sub a {
+    display: flex;
+    align-items: center;
+    min-block-size: 2.5rem;
+    padding: 0 0.75rem;
+    border-radius: 0.4rem;
+  }
+
+  .js .sub a:hover {
+    background: var(--surface);
+  }
+}
+
+@media (max-width: 43.75em) {
+  .js .site-header {
+    flex-wrap: nowrap;
+  }
+
+  .js .menu-toggle {
+    display: inline-flex;
+    inline-size: 2.75rem;
+    justify-content: center;
+    border: 1px solid var(--border);
+    border-radius: 0.6rem;
+    background: var(--raised);
+    color: var(--text);
+  }
+
+  .js .menu-toggle[aria-expanded="false"] ~ .menu {
+    display: none;
+  }
+
+  .js .menu {
+    position: absolute;
+    inset-block-start: 100%;
+    inset-inline: 0;
+    z-index: 10;
+    display: block;
+    padding: 0.4rem;
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    background: var(--raised);
+    box-shadow: 0 0.5rem 2rem rgb(0 0 0 / 0.18);
+  }
+
+  .js .menu a {
+    display: flex;
+    align-items: center;
+    min-block-size: 2.75rem;
+    padding: 0 0.75rem;
+    border-radius: 0.4rem;
+  }
+
+  .js .menu a:hover {
+    background: var(--surface);
+  }
+
+  .js .docs-toggle {
+    display: none;
+  }
+
+  .js .sub {
+    display: block;
   }
 }
