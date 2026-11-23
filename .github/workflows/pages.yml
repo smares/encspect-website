@@ -15,17 +15,24 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
+# Two jobs, as GitHub's Pages starter workflow has them: the deploy step looks the artifact up by name, and in one job it
+# asked within half a second of the upload and found none (2026-11-23, twice in a row).
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v5
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:
           path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - id: deployment
         uses: actions/deploy-pages@v5
