@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="text-scale" content="scale">
+  <title>Command Line</title>
+  <meta name="description" content="The Encspect command-line tool: analyze a file or a folder, write JSON or CSV, verify checksums, measure decoded audio and use the exit codes in scripts.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Encspect home">
+      <img class="brand-mark" src="favicon.svg" alt="" width="32" height="32">
+      <span>Encspect</span>
+    </a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="./#features">Features</a></li>
+        <li><a href="formats.html">Formats</a></li>
+        <li><a href="cli.html" aria-current="page">Command Line</a></li>
+        <li><a href="gui.html">Graphical App</a></li>
+        <li><a href="./#download">Download</a></li>
+        <li><a href="samples.html">Samples Wanted</a></li>
+        <li><a class="github" href="https://github.com/smares/encspect">GitHub</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="page-head" aria-labelledby="page-title">
+      <h1 id="page-title">Command Line</h1>
+      <p class="lead">The <code>encspect</code> program reads audio files and prints what is inside them: the structure, the encoder, the tags, the checksums and any damage. It works on one file, several files or a whole folder.</p>
+    </section>
+
+    <section class="prose" aria-labelledby="install-title">
+      <h2 id="install-title">Installing</h2>
+      <p>There is no installer. Download the archive for your system from the <a href="https://github.com/smares/encspect/releases/latest">latest release page</a>, unpack it and run the program from the folder it creates. Archives are named <code>encspect-&lt;version&gt;-&lt;platform&gt;</code>: Windows (<code>.zip</code>), macOS and Linux (<code>.tar.gz</code>), on x64 and ARM64.</p>
+      <ul>
+        <li>Each archive holds the command-line tool (<code>encspect</code>, or <code>encspect.exe</code> on Windows), the graphical app, the license and the third-party notices.</li>
+        <li>On x64 there is also a <code>-v3</code> archive for processors with AVX2. If you are unsure, unpack it and run <code>encspect --version</code>: if it prints the version, use it; otherwise take the other archive.</li>
+        <li>The programs are not signed, so Windows and macOS ask before running them the first time. The release notes say what to click.</li>
+        <li>The tool needs no .NET installation.</li>
+      </ul>
+      <figure class="code">
+        <figcaption id="install-cap">Unpack and check (Linux and macOS)</figcaption>
+        <div class="copyable">
+          <pre role="region" aria-labelledby="install-cap" tabindex="0"><code>tar xzf encspect-&lt;version&gt;-&lt;platform&gt;.tar.gz
+cd encspect-&lt;version&gt;-&lt;platform&gt;
+./encspect --version</code></pre>
+        </div>
+      </figure>
+    </section>
+
+    <section class="prose" aria-labelledby="everyday-title">
+      <h2 id="everyday-title">Everyday commands</h2>
+      <p>The general form is <code>encspect [options] [--] &lt;file-or-folder&gt;...</code>. <code>encspect --help</code> lists every option.</p>
+      <figure class="code">
+        <figcaption id="everyday-cap">Analyze files and folders</figcaption>
+        <div class="copyable">
+          <pre role="region" aria-labelledby="everyday-cap" tabindex="0"><code>encspect song.mp3
+encspect song.mp3 album.flac
+encspect ~/Music/album</code></pre>
+        </div>
+      </figure>
+      <ul>
+        <li>A folder is analyzed with all its subfolders, hidden files included, in the order of their paths.</li>
+        <li>Detection looks at the bytes, not the file extension.</li>
+        <li>Reports are written as each file is finished, so a long run starts printing at once.</li>
+        <li>A WavPack or OptimFROG file is reported together with its correction file when that sits beside it.</li>
+        <li>Standard input is not read. After <code>--</code>, every argument is a file or folder, even one that starts with a dash.</li>
+      </ul>
+    </section>
+
+    <section class="prose" aria-labelledby="output-title">
+      <h2 id="output-title">Choosing the output</h2>
+      <p>The default is a text tree. Three other outputs are meant for scripts and spreadsheets, and all four are UTF-8.</p>
+      <dl class="formats wide">
+        <div>
+          <dt><code>--json</code></dt>
+          <dd>One JSON array of reports.</dd>
+        </div>
+        <div>
+          <dt><code>--ndjson</code></dt>
+          <dd>One compact report per line, which stays usable line by line if a long run stops early.</dd>
+        </div>
+        <div>
+          <dt><code>--csv</code></dt>
+          <dd>One summary row per file: format, codec, duration, bitrate, sample rate, channels, encoder, tags, finding counts and more.</dd>
+        </div>
+      </dl>
+      <figure class="code">
+        <figcaption id="output-cap">Write a report to a file</figcaption>
+        <div class="copyable">
+          <pre role="region" aria-labelledby="output-cap" tabindex="0"><code>encspect --json ~/Music/album &gt; album.json
+encspect --csv ~/Music &gt; library.csv</code></pre>
+        </div>
+      </figure>
+    </section>
+
+    <section class="prose" aria-labelledby="options-title">
+      <h2 id="options-title">Options you will use</h2>
+      <dl class="formats wide">
+        <div>
+          <dt><code>--verify</code></dt>
+          <dd>Decodes the audio while reading it and compares the checksums that cover decoded audio, such as FLAC&rsquo;s MD5, for the formats that have a decoder. Without it, only checksums over the coded data are compared. It takes noticeably longer.</dd>
+        </div>
+        <div>
+          <dt><code>--measure</code></dt>
+          <dd>Decodes the audio and adds figures to the report: the spectrum and spectral cutoff, levels (sample peak, RMS level, clipping, digital silence), loudness and true peak. A list after it picks kinds: <code>--measure spectrum,levels</code>. The figures are measurements with units; they are never verdicts.</dd>
+        </div>
+        <div>
+          <dt><code>--offsets</code></dt>
+          <dd>Adds the byte offset and length of every node to the text tree, such as <code>[0x1A, 4 bytes]</code>. JSON always has them.</dd>
+        </div>
+        <div>
+          <dt><code>--hide</code></dt>
+          <dd>Leaves sections out of the text tree and JSON: <code>tags</code>, <code>frames</code>, <code>side-info</code>, <code>statistics</code>, <code>measurements</code>.</dd>
+        </div>
+        <div>
+          <dt><code>--explain</code></dt>
+          <dd>Adds a plain description of what each node is, and the background topic it belongs to.</dd>
+        </div>
+        <div>
+          <dt><code>--learn</code></dt>
+          <dd><code>encspect --learn</code> lists the background articles and <code>encspect --learn mid-side-stereo</code> prints one.</dd>
+        </div>
+        <div>
+          <dt><code>--only-format</code></dt>
+          <dd>Analyzes only the files whose detected format starts with a name, such as <code>--only-format flac</code>. Several names are separated by commas. Handy for a folder of mixed files.</dd>
+        </div>
+        <div>
+          <dt><code>--as</code></dt>
+          <dd>Skips format detection and analyzes every file as the named format, for a damaged file that detection does not recognize: <code>--as aac damaged.bin</code>. The report says it was forced.</dd>
+        </div>
+        <div>
+          <dt><code>--fail-on</code></dt>
+          <dd><code>info</code>, <code>warning</code> or <code>error</code>: makes the exit code 1 when a finding of that severity or worse turns up.</dd>
+        </div>
+        <div>
+          <dt><code>--version</code></dt>
+          <dd>Prints the version, with the commit the build was made from.</dd>
+        </div>
+      </dl>
+      <figure class="code">
+        <figcaption id="options-cap">Examples</figcaption>
+        <div class="copyable">
+          <pre role="region" aria-labelledby="options-cap" tabindex="0"><code>encspect --verify album.flac
+encspect --measure --json song.mp3 &gt; song.json
+encspect --only-format mp3 --csv ~/Music &gt; mp3s.csv
+encspect --fail-on warning --verify ~/Music/flac</code></pre>
+        </div>
+      </figure>
+      <p>Some combinations make no sense and are rejected as wrong usage, for example <code>--offsets</code> with <code>--csv</code>, or <code>--as</code> with <code>--only-format</code>.</p>
+    </section>
+
+    <section class="prose" aria-labelledby="reading-title">
+      <h2 id="reading-title">Reading the text output</h2>
+      <ul>
+        <li><strong>A tree.</strong> The file is at the top, then its streams, frames, tags and other parts as nested lines. Every line is a field the parser read, with its value and unit.</li>
+        <li><strong>Findings.</strong> Anything odd, such as truncation, a broken checksum or a tag that breaks its specification, is listed as a finding with a severity (info, warning or error) that points at the node it concerns. Damaged files get findings, not crashes.</li>
+        <li><strong>Encoder and writer.</strong> The encoder named by the stream&rsquo;s own evidence, and the software that wrote the container, each with a confidence.</li>
+        <li><strong>Verified.</strong> With <code>--verify</code>, a stream that stores checksums gets a line that reads <code>yes</code>, <code>no</code> or <code>unknown</code>, with the details in parentheses.</li>
+        <li><strong>Measurements.</strong> With <code>--measure</code>, lines such as these appear under the stream, each with its basis:</li>
+      </ul>
+      <figure class="code">
+        <figcaption id="measure-cap">An excerpt of measured figures</figcaption>
+        <div class="copyable">
+          <pre role="region" aria-labelledby="measure-cap" tabindex="0"><code>Spectral Cutoff: 16,796 Hz (a step of 59.1 dB, transition from 16,538 Hz, in 20 of 20 frames with signal), measured from the decoded audio
+Sample Peak: -8.7 dBFS
+Integrated Loudness: -20.4 LUFS
+Maximum True Peak Level: -8.6 dBTP</code></pre>
+        </div>
+      </figure>
+      <p>Encspect does not play or convert audio. It decodes only to check checksums and to measure.</p>
+    </section>
+
+    <section class="prose" aria-labelledby="exit-title">
+      <h2 id="exit-title">Exit codes</h2>
+      <p>Scripts can rely on these.</p>
+      <dl class="formats">
+        <div>
+          <dt><code>0</code></dt>
+          <dd>Success.</dd>
+        </div>
+        <div>
+          <dt><code>1</code></dt>
+          <dd>Findings, as <code>--fail-on</code> says.</dd>
+        </div>
+        <div>
+          <dt><code>2</code></dt>
+          <dd>Wrong usage.</dd>
+        </div>
+        <div>
+          <dt><code>3</code></dt>
+          <dd>A file or folder could not be read, or is not a regular file.</dd>
+        </div>
+        <div>
+          <dt><code>4</code></dt>
+          <dd>The output could not be written, as on a full disk; the run stops there.</dd>
+        </div>
+      </dl>
+      <p>A file that cannot be read still gets a report with an error finding, so JSON and CSV list every input. A closed pipe, as with <code>| head</code>, is not an error.</p>
+    </section>
+
+    <section class="prose" aria-labelledby="more-title">
+      <h2 id="more-title">The full reference</h2>
+      <p>Every option, the JSON report in detail, the CSV columns and the measurements are described in <a href="https://github.com/smares/encspect/blob/main/docs/cli.md">the command-line documentation on GitHub</a>. Prefer windows? See the <a href="gui.html">graphical app</a>.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p><a href="formats.html">Formats and tags</a> · <a href="cli.html">Command Line</a> · <a href="gui.html">Graphical App</a> · <a href="samples.html">Samples Wanted</a></p>
+    <p>Encspect is open source under the <a href="https://github.com/smares/encspect/blob/main/LICENSE">MIT License</a>. <a href="https://github.com/smares/encspect">Source, issues and plan on GitHub</a>.</p>
+  </footer>
+</body>
+</html>

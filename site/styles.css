@@ -483,3 +483,51 @@ main > .page-head {
   padding: 0;
   list-style: none;
 }
+
+/* Command Line and Graphical App pages */
+.formats.wide div {
+  grid-template-columns: minmax(0, 12rem) minmax(0, 1fr);
+}
+
+@media (max-width: 36em) {
+  .formats.wide div {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.prose :is(p, li, dd) code,
+.page-head code {
+  font-family: ui-monospace, "Cascadia Code", "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.9em;
+}
+
+.shot-section > :is(p, ul) {
+  max-inline-size: 70ch;
+}
+
+.shot-section ul {
+  padding-inline-start: 1.4rem;
+}
+
+.shot-section li + li {
+  margin-block-start: 0.6rem;
+}
+
+.gallery-fig {
+  margin: 0 0 1.5rem;
+}
+
+.prose .code,
+.prose .code pre {
+  max-inline-size: 70ch;
+}
+
+.prose .code pre {
+  max-inline-size: none;
+}
+
+@media (max-width: 36em) {
+  .site-header ul {
+    gap: 0.25rem 1rem;
+  }
+}
