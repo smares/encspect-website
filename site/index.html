@@ -24,6 +24,7 @@
         <li><a href="#features">Features</a></li>
         <li><a href="#formats">Formats</a></li>
         <li><a href="#download">Download</a></li>
+        <li><a href="samples.html">Samples Wanted</a></li>
         <li><a href="https://github.com/smares/encspect">GitHub</a></li>
       </ul>
     </nav>
@@ -69,7 +70,7 @@
         </li>
         <li class="card">
           <h3>Measured audio</h3>
-          <p>Decoded audio gets its spectrum and spectral cutoff, spectrogram, waveform, levels, loudness after EBU R 128, and true peak.</p>
+          <p>Audio that a decoder reads (the lossless formats, MPEG audio, Vorbis, Opus, AC-3, E-AC-3, and the samples of WAV and AIFF) gets its spectrum and spectral cutoff, spectrogram, waveform, levels, loudness after EBU R 128, and true peak.</p>
         </li>
       </ul>
     </section>
@@ -117,15 +118,19 @@
         </div>
         <div>
           <dt>Tags</dt>
-          <dd>ID3v1, ID3v2, APE, Lyrics3 and Vorbis comments</dd>
+          <dd>ID3v1 and ID3v2, APEv1 and APEv2, Lyrics3 v1 and v2, Vorbis comments</dd>
+        </div>
+        <div>
+          <dt>Container metadata</dt>
+          <dd>The containers' own metadata is read too: ASF and WMA, MP4 and M4A, Matroska and WebM, RIFF INFO in WAV, and the text chunks of AIFF</dd>
         </div>
       </dl>
-      <p><a href="https://github.com/smares/encspect/blob/main/docs/formats/README.md">What each format reads, in detail</a></p>
+      <p><a href="formats.html">What each format and tag reads, in short</a></p>
     </section>
 
     <section id="download" aria-labelledby="download-title">
       <h2 id="download-title">Download</h2>
-      <p>Pre-release builds for Windows, macOS and Linux, on x64 and ARM64, are on the <a href="https://github.com/smares/encspect/releases/latest">latest release page</a>. They are not signed; see the release notes.</p>
+      <p>Version 0.3.0, a pre-release: builds for Windows, macOS and Linux, on x64 and ARM64, are on the <a href="https://github.com/smares/encspect/releases/latest">latest release page</a>. They are not signed; see the release notes.</p>
       <p>The command-line tool prints the structure tree of a file, or a JSON report:</p>
       <figure class="code">
         <figcaption id="cli-caption">Analyze a file, and measure its decoded audio</figcaption>
@@ -143,9 +148,16 @@ encspect --measure song.flac</code></pre>
       </figure>
       <p>Encspect analyzes audio; it does not play or convert it. <a href="https://github.com/smares/encspect/blob/main/docs/cli.md">Command-line documentation</a> · <a href="https://github.com/smares/encspect/blob/main/docs/gui.md">The graphical app</a></p>
     </section>
+
+    <section id="samples" aria-labelledby="samples-title">
+      <h2 id="samples-title">Samples wanted</h2>
+      <p class="section-lead">Encspect names an encoder only from what it has seen real files from that encoder do. If you have files from a particular encoder, an old program or an unusual setting, they can help.</p>
+      <p><a class="button" href="samples.html">Which files help, and how to share them</a></p>
+    </section>
   </main>
 
   <footer class="site-footer">
+    <p><a href="formats.html">Formats and tags</a> · <a href="samples.html">Samples Wanted</a></p>
     <p>Encspect is open source under the <a href="https://github.com/smares/encspect/blob/main/LICENSE">MIT License</a>. <a href="https://github.com/smares/encspect">Source, issues and plan on GitHub</a>.</p>
   </footer>
 </body>
