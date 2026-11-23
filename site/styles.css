@@ -762,3 +762,12 @@ main > .page-head {
     min-block-size: 2.75rem;
   }
 }
+
+/* Touch targets of at least 44 px for the links that sit apart from running text. */
+@media (pointer: coarse) {
+  .link-row a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 2.75rem;
+  }
+}
