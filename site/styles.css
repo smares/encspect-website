@@ -563,6 +563,7 @@ main > .page-head {
 }
 
 .nav-button .chevron {
+  margin-inline-start: 0.25em;
   inline-size: 0.45em;
   block-size: 0.45em;
   margin-block-start: -0.2em;
