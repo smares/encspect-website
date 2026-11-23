@@ -460,3 +460,26 @@ main > .page-head {
 .site-footer p {
   margin-block: 0 0.5rem;
 }
+
+/* The GitHub mark before links to GitHub: one masked file, so it takes the link's color in both themes. */
+.github::before {
+  content: "";
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.35em;
+  vertical-align: -0.125em;
+  background-color: currentColor;
+  -webkit-mask: url("github-mark.svg") center / contain no-repeat;
+  mask: url("github-mark.svg") center / contain no-repeat;
+}
+
+/* Links that sit side by side wrap as whole links, without a separator that could start a line. */
+.link-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25em 1.25em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
