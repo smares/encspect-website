@@ -46,7 +46,7 @@
   </header>
 
   <main id="main">
-    <section class="hero" aria-labelledby="hero-title">
+    <section class="hero">
       <h1 id="hero-title">See what is inside an audio file.</h1>
       <p class="lead">Encspect reports everything technically knowable about an audio file's structure: the encoder and the software that wrote it, bitrate behavior, the bit reservoir, VBR headers, tags and damage. Every value it reports points back to the bytes it came from.</p>
       <p class="actions">
@@ -60,9 +60,9 @@
       </picture>
     </section>
 
-    <section id="features" aria-labelledby="features-title">
+    <section id="features">
       <h2 id="features-title">What it shows</h2>
-      <ul class="cards">
+      <ul class="cards" role="list">
         <li class="card">
           <h3>Every value has a source</h3>
           <p>Each field in the structure tree carries its byte offset and length, down to single bits, and the hex view shows the bytes it was read from.</p>
@@ -90,7 +90,7 @@
       </ul>
     </section>
 
-    <section class="gallery" aria-labelledby="gallery-title">
+    <section class="gallery">
       <h2 id="gallery-title">A closer look</h2>
       <figure>
         <picture class="shot">
@@ -115,7 +115,7 @@
       </figure>
     </section>
 
-    <section id="formats" aria-labelledby="formats-title">
+    <section id="formats">
       <h2 id="formats-title">Formats</h2>
       <p class="section-lead">Each container is read at its own level, and each stream by its frames.</p>
       <dl class="formats">
@@ -143,7 +143,7 @@
       <p><a href="formats.html">What each format and tag reads, in short</a></p>
     </section>
 
-    <section id="download" aria-labelledby="download-title">
+    <section id="download">
       <h2 id="download-title">Download</h2>
       <p>Version 0.3.0, a pre-release: builds for Windows, macOS and Linux, on x64 and ARM64, are on the <a href="https://github.com/smares/encspect/releases/latest">latest release page</a>. They are not signed; see the release notes.</p>
       <p>The command-line tool prints the structure tree of a file, or a JSON report:</p>
@@ -162,13 +162,13 @@ encspect --measure song.flac</code></pre>
         </div>
       </figure>
       <p>Encspect analyzes audio; it does not play or convert it.</p>
-      <ul class="link-row">
+      <ul class="link-row" role="list">
         <li><a href="cli.html">The command line</a></li>
         <li><a href="gui.html">The graphical app</a></li>
       </ul>
     </section>
 
-    <section id="samples" aria-labelledby="samples-title">
+    <section id="samples">
       <h2 id="samples-title">Samples wanted</h2>
       <p class="section-lead">Encspect names an encoder only from what it has seen real files from that encoder do. If you have files from a particular encoder, an old program or an unusual setting, they can help.</p>
       <p><a class="button" href="samples.html">Which files help, and how to share them</a></p>

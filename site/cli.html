@@ -45,12 +45,12 @@
   </header>
 
   <main id="main">
-    <section class="page-head" aria-labelledby="page-title">
+    <section class="page-head">
       <h1 id="page-title">Command Line</h1>
       <p class="lead">The <code>encspect</code> program reads audio files and prints what is inside them: the structure, the encoder, the tags, the checksums and any damage. It works on one file, several files or a whole folder.</p>
     </section>
 
-    <section class="prose" aria-labelledby="install-title">
+    <section class="prose">
       <h2 id="install-title">Installing</h2>
       <p>There is no installer. Download the archive for your system from the <a href="https://github.com/smares/encspect/releases/latest">latest release page</a>, unpack it and run the program from the folder it creates. Archives are named <code>encspect-&lt;version&gt;-&lt;platform&gt;</code>: Windows (<code>.zip</code>), macOS and Linux (<code>.tar.gz</code>), on x64 and ARM64.</p>
       <ul>
@@ -69,7 +69,7 @@ cd encspect-&lt;version&gt;-&lt;platform&gt;
       </figure>
     </section>
 
-    <section class="prose" aria-labelledby="everyday-title">
+    <section class="prose">
       <h2 id="everyday-title">Everyday commands</h2>
       <p>The general form is <code>encspect [options] [--] &lt;file-or-folder&gt;...</code>. <code>encspect --help</code> lists every option.</p>
       <figure class="code">
@@ -89,7 +89,7 @@ encspect ~/Music/album</code></pre>
       </ul>
     </section>
 
-    <section class="prose" aria-labelledby="output-title">
+    <section class="prose">
       <h2 id="output-title">Choosing the output</h2>
       <p>The default is a text tree. Three other outputs are meant for scripts and spreadsheets, and all four are UTF-8.</p>
       <dl class="formats wide">
@@ -115,7 +115,7 @@ encspect --csv ~/Music &gt; library.csv</code></pre>
       </figure>
     </section>
 
-    <section class="prose" aria-labelledby="options-title">
+    <section class="prose">
       <h2 id="options-title">Options you will use</h2>
       <dl class="formats wide">
         <div>
@@ -171,7 +171,7 @@ encspect --fail-on warning --verify ~/Music/flac</code></pre>
       <p>Some combinations make no sense and are rejected as wrong usage, for example <code>--offsets</code> with <code>--csv</code>, or <code>--as</code> with <code>--only-format</code>.</p>
     </section>
 
-    <section class="prose" aria-labelledby="reading-title">
+    <section class="prose">
       <h2 id="reading-title">Reading the text output</h2>
       <ul>
         <li><strong>A tree.</strong> The file is at the top, then its streams, frames, tags and other parts as nested lines. Every line is a field the parser read, with its value and unit.</li>
@@ -192,7 +192,7 @@ Maximum True Peak Level: -8.6 dBTP</code></pre>
       <p>Encspect does not play or convert audio. It decodes only to check checksums and to measure.</p>
     </section>
 
-    <section class="prose" aria-labelledby="exit-title">
+    <section class="prose">
       <h2 id="exit-title">Exit codes</h2>
       <p>Scripts can rely on these.</p>
       <dl class="formats">
@@ -220,7 +220,7 @@ Maximum True Peak Level: -8.6 dBTP</code></pre>
       <p>A file that cannot be read still gets a report with an error finding, so JSON and CSV list every input. A closed pipe, as with <code>| head</code>, is not an error.</p>
     </section>
 
-    <section class="prose" aria-labelledby="more-title">
+    <section class="prose">
       <h2 id="more-title">The full reference</h2>
       <p>Every option, the JSON report in detail, the CSV columns and the measurements are described in <a href="https://github.com/smares/encspect/blob/main/docs/cli.md">the command-line documentation on GitHub</a>. Prefer windows? See the <a href="gui.html">graphical app</a>.</p>
     </section>

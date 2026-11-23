@@ -45,12 +45,12 @@
   </header>
 
   <main id="main">
-    <section class="page-head" aria-labelledby="page-title">
+    <section class="page-head">
       <h1 id="page-title">Formats and Tags</h1>
       <p class="lead">What Encspect 0.3.0 reads. Each container is read at its own level, and each stream by its frames.</p>
     </section>
 
-    <section class="prose" aria-labelledby="audio-title">
+    <section class="prose">
       <h2 id="audio-title">Audio formats</h2>
       <dl class="formats">
         <div>
@@ -116,7 +116,7 @@
       </dl>
     </section>
 
-    <section class="prose" aria-labelledby="containers-title">
+    <section class="prose">
       <h2 id="containers-title">Containers</h2>
       <dl class="formats">
         <div>
@@ -147,7 +147,7 @@
       <p>Streams that a container encrypts or locks are reported with their scheme and DRM systems. Nothing is decrypted.</p>
     </section>
 
-    <section class="prose" aria-labelledby="tags-title">
+    <section class="prose">
       <h2 id="tags-title">Tags</h2>
       <p>Tag formats that can sit in many kinds of file have parsers of their own. They are found by position and structure, never by a signature alone, because short signatures collide with each other and with audio data. A tag that breaks its specification stays in the report, with findings.</p>
       <dl class="formats">
@@ -174,7 +174,7 @@
       </dl>
     </section>
 
-    <section class="prose" aria-labelledby="more-title">
+    <section class="prose">
       <h2 id="more-title">More</h2>
       <p>Each format has a page of its own in the documentation, with what is read, what is reported and what is not covered: <a href="https://github.com/smares/encspect/blob/v0.3.0/docs/formats/README.md">formats</a> and <a href="https://github.com/smares/encspect/blob/v0.3.0/docs/tags/README.md">tags</a> on GitHub.</p>
     </section>
