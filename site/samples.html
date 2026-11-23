@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="text-scale" content="scale">
+  <title>Samples Wanted</title>
+  <meta name="description" content="Which audio files help Encspect recognize more encoders, what makes a sample useful, what not to send, and how to share it.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Encspect home">
+      <img class="brand-mark" src="favicon.svg" alt="" width="32" height="32">
+      <span>Encspect</span>
+    </a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="./#features">Features</a></li>
+        <li><a href="formats.html">Formats</a></li>
+        <li><a href="./#download">Download</a></li>
+        <li><a href="samples.html" aria-current="page">Samples Wanted</a></li>
+        <li><a href="https://github.com/smares/encspect">GitHub</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="page-head" aria-labelledby="page-title">
+      <h1 id="page-title">Samples Wanted</h1>
+      <p class="lead">Encspect recognizes an encoder from what the encoder leaves in a file. It can only learn that from files whose origin is known. If you have such files, you can help.</p>
+    </section>
+
+    <section class="prose" aria-labelledby="why-title">
+      <h2 id="why-title">Why samples matter</h2>
+      <p>Every encoder leaves traces: version strings, header layouts, padding bytes, habits in how it lays out frames, gapless-playback data. Encspect reads these and reports what they say about the encoder and the software that wrote the file.</p>
+      <p>A detection rule is only added when it can be checked against a file that the encoder really wrote. A guess from a description of an encoder is not enough, and a file whose origin nobody remembers cannot teach anything. So the most valuable file is one where you know exactly what made it.</p>
+    </section>
+
+    <section class="prose" aria-labelledby="useful-title">
+      <h2 id="useful-title">What makes a sample useful</h2>
+      <ul>
+        <li><strong>The encoder, its version and its settings are known.</strong> A program name and version number, plus the bitrate mode, quality setting or preset you chose. "Unknown" is a fine answer for a part you cannot recall; say so rather than guess.</li>
+        <li><strong>The file is as the encoder wrote it.</strong> No re-saving in an editor, no tag editing, no trimming, normalizing or converting afterward. Any of these can overwrite the very traces Encspect looks for.</li>
+        <li><strong>Short is fine.</strong> Ten to thirty seconds, or a file under a few megabytes, is plenty. A short file encoded directly is better than a long one cut afterward.</li>
+        <li><strong>Several settings from one program are welcome.</strong> The same encoder at different bitrates, modes or channel counts shows which traces change and which stay.</li>
+      </ul>
+    </section>
+
+    <section class="prose" aria-labelledby="wanted-title">
+      <h2 id="wanted-title">The kinds of files wanted</h2>
+      <div class="kinds">
+        <div class="card">
+          <h3>A specific encoder and version</h3>
+          <p>Files from a program whose exact version you know. Examples: a particular release of a command-line encoder, a music player's built-in ripper or converter, an audio editor's export.</p>
+        </div>
+        <div class="card">
+          <h3>Old and rare encoders</h3>
+          <p>Programs from the 1990s and 2000s, discontinued tools, early versions, patched or tuned builds, and the encoders inside hardware players, recorders and phones.</p>
+        </div>
+        <div class="card">
+          <h3>Unusual settings</h3>
+          <p>Uncommon bitrate modes, very low or very high bitrates, odd sample rates, mono and multichannel files, joint stereo switched off, and options that change how a file is laid out.</p>
+        </div>
+        <div class="card">
+          <h3>Unusual containers and wrappers</h3>
+          <p>Audio in a container it is not usually found in, such as Matroska, Ogg, MP4 or WAV carrying a codec you would not expect, or files written by a muxer or tagging tool with its own habits.</p>
+        </div>
+        <div class="card">
+          <h3>Damaged files</h3>
+          <p>Truncated downloads, files cut mid-frame, files with bad checksums or garbage at the end. Say what happened to the file, and keep an undamaged copy if you have one.</p>
+        </div>
+        <div class="card">
+          <h3>Anything that Encspect gets wrong</h3>
+          <p>A file where Encspect names the wrong encoder, names none although you know which one it was, or reports a finding that looks mistaken.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="prose" aria-labelledby="avoid-title">
+      <h2 id="avoid-title">What not to send</h2>
+      <ul>
+        <li><strong>Music you do not have the right to share.</strong> Commercial recordings are not needed. Encode a clip of your own, a recording you made, or a test tone or noise instead; the encoder's traces are the same.</li>
+        <li><strong>Files with personal data in their tags.</strong> Names, e-mail addresses, account or license IDs and comments can all end up in tags. Remove them or blank them with characters of the same length, and say that you did. Better still, start from a file with no tags.</li>
+        <li><strong>The encoder program itself.</strong> Send files and what is known about them, not installers or program files.</li>
+      </ul>
+    </section>
+
+    <section class="prose" aria-labelledby="share-title">
+      <h2 id="share-title">How to share</h2>
+      <ol>
+        <li>Put the file on any file host that gives you a download link.</li>
+        <li><a href="https://github.com/smares/encspect/issues">Open an issue on GitHub</a> and paste the link.</li>
+        <li>Write what you know about how it was made: the program and version, the operating system, the settings you chose, whether it added tags by itself, and anything odd that happened.</li>
+        <li>Say how the file may be used: only for checking Encspect, or also as a test file in the public project. If you are not sure, say that.</li>
+      </ol>
+      <p class="actions-left"><a class="button primary" href="https://github.com/smares/encspect/issues">Open an issue</a></p>
+      <p>No GitHub account, or unsure whether a file is useful? Describe it in an issue anyway; a description of what you have is a good start.</p>
+    </section>
+
+    <section class="prose" aria-labelledby="more-title">
+      <h2 id="more-title">More</h2>
+      <p>The full project documentation, including how encoder detection works and how test files are checked, is on GitHub: <a href="https://github.com/smares/encspect/blob/main/docs/plan.md">the project plan</a> and <a href="https://github.com/smares/encspect/blob/main/docs/development.md">the development guide</a>.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Encspect is open source under the <a href="https://github.com/smares/encspect/blob/main/LICENSE">MIT License</a>. <a href="https://github.com/smares/encspect">Source, issues and plan on GitHub</a>.</p>
+  </footer>
+</body>
+</html>

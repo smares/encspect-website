@@ -410,3 +410,53 @@ pre {
   color: var(--muted);
   font-size: 0.95rem;
 }
+
+/* Subpages: samples.html and formats.html */
+.site-header nav a[aria-current="page"] {
+  color: var(--text);
+  text-decoration: underline;
+}
+
+main > .page-head {
+  padding-block-end: 1rem;
+}
+
+.page-head h1 {
+  margin-block: 1rem;
+  font-size: clamp(2rem, 1.4rem + 2.5vw, 3.25rem);
+  letter-spacing: -0.02em;
+}
+
+.page-head .lead {
+  margin-inline: 0;
+}
+
+.prose > :is(p, ul, ol, .formats) {
+  max-inline-size: 70ch;
+}
+
+.prose .formats {
+  max-inline-size: none;
+}
+
+.prose :is(ul, ol) {
+  padding-inline-start: 1.4rem;
+}
+
+.prose li + li {
+  margin-block-start: 0.6rem;
+}
+
+.kinds {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: 1rem;
+}
+
+.actions-left {
+  margin-block: 1.5rem;
+}
+
+.site-footer p {
+  margin-block: 0 0.5rem;
+}
