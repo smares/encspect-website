@@ -102,11 +102,36 @@ p {
 }
 
 /* Page width: content up to 72rem, with a gutter that never drops below 1rem. */
-.site-header,
+.header-inner,
 main > section,
 .site-footer {
   inline-size: min(100% - 2rem, 72rem);
   margin-inline: auto;
+}
+
+/* The header is a full-width sticky bar. --header-height is the bar's height: one row holding the brand mark or the
+   2.75rem Menu button, the inner padding and the bottom border. Where popovers are missing the row wraps, so the value
+   is raised there. Anchor jumps and focus land below the bar through scroll-padding-top. */
+:root {
+  --header-height: 5.25rem;
+}
+
+@supports not selector(:popover-open) {
+  :root {
+    --header-height: 7.5rem;
+  }
+}
+
+html {
+  scroll-padding-block-start: calc(var(--header-height) + 1rem);
+}
+
+.site-header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 10;
+  background: var(--surface);
+  border-block-end: 1px solid var(--border);
 }
 
 .header-inner {

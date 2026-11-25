@@ -145,7 +145,7 @@
 
     <section id="download">
       <h2 id="download-title">Download</h2>
-      <p>Version 0.4.0, a pre-release: builds for Windows, macOS and Linux, on x64 and ARM64, are on the <a href="https://github.com/smares/encspect/releases/latest">latest release page</a>. They are not signed; see the release notes.</p>
+      <p>Version 0.4.0, a pre-release: builds for Windows, macOS and Linux, on x64 and ARM64, are on the <a href="https://github.com/smares/encspect/releases/latest">latest release page</a>. They are not signed; <a href="#download-notes">see below</a>.</p>
       <p>The command-line tool prints the structure tree of a file, or a JSON report:</p>
       <figure class="code">
         <figcaption id="cli-caption">Analyze a file, and measure its decoded audio</figcaption>
@@ -162,6 +162,13 @@ encspect --measure song.flac</code></pre>
         </div>
       </figure>
       <p>Encspect analyzes audio; it does not play or convert it.</p>
+      <h3 id="download-notes">Which archive, and the first run</h3>
+      <p>There is no installer: unpack the archive and run the programs from the folder it creates. Each archive holds the command-line tool, the graphical app, the license and the third-party notices. Archives are named <code>encspect-&lt;version&gt;-&lt;platform&gt;</code>: Windows (<code>.zip</code>), macOS and Linux (<code>.tar.gz</code>), on x64 and ARM64.</p>
+      <ul>
+        <li>On x64 there is also a <code>-v3</code> archive for processors with AVX2. If you are unsure, unpack it and run <code>encspect --version</code>: if it prints the version, use it; otherwise take the other archive.</li>
+        <li>The programs are not signed, so Windows and macOS ask before running them the first time. The release notes say what to click.</li>
+        <li>The programs need no .NET installation.</li>
+      </ul>
       <ul class="link-row" role="list">
         <li><a href="cli.html">The command line</a></li>
         <li><a href="gui.html">The graphical app</a></li>
