@@ -63,11 +63,11 @@
         </div>
         <div>
           <dt>Vorbis, Opus, Speex</dt>
-          <dd>In Ogg; Opus also in MP4 and Matroska. All three are decoded for measurement. Opus mapping family 3 and unknown families are not decoded, and lost frames are not concealed. A Vorbis setup header that states a very large codebook is not decoded.</dd>
+          <dd>In Ogg; Vorbis also in Matroska, and Opus also in MP4 and Matroska. All three are decoded for measurement. Opus mapping family 3 and unknown families are not decoded, and lost frames are not concealed. A Vorbis setup header that states a very large codebook is not decoded.</dd>
         </div>
         <div>
           <dt>Musepack</dt>
-          <dd>SV4 to SV8. Decoded and measured.</dd>
+          <dd>SV4 to SV8. Decoded and measured; the SV4 to SV6 streams that libmpcdec 1.2.6 refuses (a constant bitrate, intensity stereo, blocks of frames) are read at header level and not decoded.</dd>
         </div>
         <div>
           <dt>AC-3 and E-AC-3</dt>
@@ -75,7 +75,7 @@
         </div>
         <div>
           <dt>DTS</dt>
-          <dd>Core, XCh, X96, XXCH, XBR and XLL, the DTS-HD extension substreams and DTS:X, raw and in MP4, and DTS-HD files (.dtshd). The core is decoded for measurement, except channel arrangements 10 to 15 and user defined ones. The extensions are read, not decoded.</dd>
+          <dd>Core, XCh, X96, XXCH, XBR, LBR and XLL, the DTS-HD extension substreams and DTS:X, raw and in MP4, and DTS-HD files (.dtshd). The core is decoded for measurement, except channel arrangements 10 to 15 and user defined ones. The extensions are read, not decoded.</dd>
         </div>
         <div>
           <dt>Windows Media Audio</dt>
@@ -83,7 +83,7 @@
         </div>
         <div>
           <dt>FLAC</dt>
-          <dd>Native and in Ogg. Decoded, verifying the audio's MD5, and measured.</dd>
+          <dd>Native, in Ogg, in MP4 and in Matroska. Decoded, verifying the audio's MD5, and measured.</dd>
         </div>
         <div>
           <dt>WavPack</dt>
@@ -103,11 +103,11 @@
         </div>
         <div>
           <dt>Dolby TrueHD and MLP</dt>
-          <dd>Raw .thd and .mlp files. Decoded, verifying the lossless checks of the audio.</dd>
+          <dd>Raw .thd and .mlp files, and the tracks of MP4 and Matroska. Decoded, verifying the lossless checks of the audio.</dd>
         </div>
         <div>
           <dt>TAK</dt>
-          <dd>Every frame is read: the count, the header and data CRC-24s and the bitrate. Codecs 2 and 4 at 8 to 24 bits are decoded for measurement, verifying the stream&rsquo;s MD5 where it has one. Codecs 0, 1 and 3 (TAK 1.0) are not decoded.</dd>
+          <dd>Every frame is read: the count, the header and data CRC-24s and the bitrate. Codecs 2 and 4 at 8, 16 and 24 bits are decoded for measurement, verifying the stream&rsquo;s MD5 where it has one. Codec 0 (TAK 1.0), the experimental and lossyWAV codecs 1 and 3, other bit depths and more than six channels are not decoded.</dd>
         </div>
         <div>
           <dt>OptimFROG</dt>
@@ -137,11 +137,11 @@
         </div>
         <div>
           <dt>ASF</dt>
-          <dd>WMA, WMV and ASF files, with MP3 and AC-3 audio handed to their parsers.</dd>
+          <dd>WMA, WMV and ASF files, with MP3 and AC-3 audio handed to their parsers. Other codings that have parsers elsewhere (PCM, A-law, mu-law, DTS, MPEG Layer I and II) are named, not analyzed, and routing them is planned for 0.5; E-AC-3 in ASF is not routed.</dd>
         </div>
         <div>
           <dt>WAV and Wave64</dt>
-          <dd>RIFF, RIFX, RF64, BW64 and Wave64, with all their chunks. MPEG audio, AC-3, E-AC-3 and DTS inside are read by their parsers, also as IEC 61937 bursts.</dd>
+          <dd>RIFF, RIFX, RF64, BW64 and Wave64, with all their chunks. MPEG audio, AC-3, E-AC-3 and DTS inside are read by their parsers, also as IEC 61937 bursts, which hold AAC as well.</dd>
         </div>
         <div>
           <dt>AIFF</dt>
