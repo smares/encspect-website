@@ -109,13 +109,18 @@ main > section,
   margin-inline: auto;
 }
 
-.site-header {
+.header-inner {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem 1.5rem;
   padding-block: 1.25rem;
+}
+
+/* Kept at their natural width, so the script can tell whether the inline row fits. */
+.header-inner > * {
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .brand {
@@ -133,14 +138,6 @@ main > section,
   block-size: 2rem;
 }
 
-.site-header ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem 1.25rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
 
 .site-header nav a {
   color: var(--muted);
@@ -470,6 +467,8 @@ main > .page-head {
   margin-right: 0.35em;
   vertical-align: -0.125em;
   background-color: currentColor;
+  flex: none;
+  forced-color-adjust: none;
   -webkit-mask: url("github-mark.svg") center / contain no-repeat;
   mask: url("github-mark.svg") center / contain no-repeat;
 }
@@ -482,4 +481,294 @@ main > .page-head {
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+/* Command Line and Graphical App pages */
+.formats.wide div {
+  grid-template-columns: minmax(0, 12rem) minmax(0, 1fr);
+}
+
+@media (max-width: 36em) {
+  .formats.wide div {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.prose :is(p, li, dd) code,
+.page-head code {
+  font-family: ui-monospace, "Cascadia Code", "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.9em;
+}
+
+.shot-section > :is(p, ul) {
+  max-inline-size: 70ch;
+}
+
+.shot-section ul {
+  padding-inline-start: 1.4rem;
+}
+
+.shot-section li + li {
+  margin-block-start: 0.6rem;
+}
+
+.gallery-fig {
+  margin: 0 0 1.5rem;
+}
+
+.prose .code,
+.prose .code pre {
+  max-inline-size: 70ch;
+}
+
+.prose .code pre {
+  max-inline-size: none;
+}
+
+/* Header navigation. Collapsed by default, and without script: one Menu button opens the list as a popover.
+   nav.js adds is-wide to the header when the whole row fits, and the list then becomes the inline navigation. */
+.site-nav {
+  display: flex;
+  align-items: center;
+}
+
+.menu-button,
+.dropdown-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  min-block-size: 2.75rem;
+  padding: 0 0.25rem;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.menu-button {
+  anchor-name: --menu-button;
+  justify-content: center;
+  min-inline-size: 2.75rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+  background: var(--raised);
+  color: var(--text);
+}
+
+.dropdown-trigger {
+  display: none;
+}
+
+.dropdown-trigger:hover,
+.dropdown-trigger[aria-expanded="true"],
+.dropdown-trigger[aria-current] {
+  color: var(--text);
+}
+
+.dropdown-trigger[aria-current] {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.icon-bars {
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.chevron {
+  margin-inline-start: 0.25em;
+  inline-size: 0.45em;
+  block-size: 0.45em;
+  margin-block-start: -0.2em;
+  border-inline-end: 2px solid currentColor;
+  border-block-end: 2px solid currentColor;
+  rotate: 45deg;
+}
+
+.dropdown-trigger[aria-expanded="true"] .chevron {
+  margin-block: 0.15em 0;
+  rotate: 225deg;
+}
+
+.sr-only {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.site-menu,
+.dropdown-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-menu a,
+.dropdown-list a {
+  display: flex;
+  align-items: center;
+  min-block-size: 2.75rem;
+  padding-inline: 0.75rem;
+  border-radius: 0.4rem;
+}
+
+.site-menu a:hover,
+.dropdown-list a:hover {
+  background: var(--surface);
+  text-decoration: none;
+}
+
+@supports selector(:popover-open) {
+  .site-menu[popover] {
+    position: fixed;
+    inset: auto;
+    /* Roughly the header's height, for browsers without anchor positioning. */
+    inset-block-start: 4.25rem;
+    inset-block-start: anchor(--menu-button bottom);
+    inset-inline-end: max(1rem, calc((100dvw - 72rem) / 2));
+    inline-size: min(80dvw, 24rem);
+    max-inline-size: calc(100dvw - 2rem);
+    block-size: fit-content;
+    max-block-size: calc(100dvh - 6rem);
+    margin: 0;
+    margin-block-start: 0.25rem;
+    padding: 0.4rem;
+    overflow: auto;
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    background: var(--raised);
+    color: var(--text);
+    box-shadow: 0 0.5rem 2rem rgb(0 0 0 / 0.18);
+  }
+
+  .site-menu[popover]:not(:is(:popover-open, .\:popover-open)) {
+    display: none;
+  }
+}
+
+/* A browser without popovers shows the whole list as a row that wraps, and no button. */
+@supports not selector(:popover-open) {
+  .menu-button {
+    display: none;
+  }
+
+  .header-inner {
+    flex-wrap: wrap;
+  }
+
+  .site-menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.25rem;
+  }
+
+  .site-menu a {
+    min-block-size: 0;
+    padding-inline: 0;
+  }
+}
+
+.site-header.is-wide {
+  .menu-button {
+    display: none;
+  }
+
+  .dropdown-trigger {
+    display: inline-flex;
+  }
+
+  .site-menu {
+    position: static;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem 1.25rem;
+    inline-size: auto;
+    max-inline-size: none;
+    block-size: auto;
+    max-block-size: none;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .site-menu > li > a {
+    min-block-size: 0;
+    padding-inline: 0;
+    border-radius: 0;
+  }
+
+  .site-menu > li > a:hover {
+    background: none;
+    text-decoration: underline;
+  }
+
+  /* Also hides the list before the script sets popover on it. */
+  .dropdown-list:not(:is(:popover-open, .\:popover-open)) {
+    display: none;
+  }
+
+  .dropdown-list:is(:popover-open, .\:popover-open) {
+    display: grid;
+    inline-size: max-content;
+    min-inline-size: 13rem;
+    block-size: auto;
+    margin: 0;
+    padding: 0.4rem;
+    overflow: visible;
+    border: 1px solid var(--border);
+    border-radius: 0.6rem;
+    background: var(--raised);
+    color: var(--text);
+    box-shadow: 0 0.5rem 2rem rgb(0 0 0 / 0.18);
+  }
+
+  .dropdown-list a {
+    min-block-size: 2.5rem;
+  }
+}
+
+@supports (position-area: block-end) {
+  .site-header.is-wide .dropdown-list[popover] {
+    position: absolute;
+    position-area: block-end span-inline-end;
+    position-try-fallbacks: flip-block, flip-inline;
+    inset: auto;
+    margin-block-start: 0.25rem;
+  }
+}
+
+@supports not (position-area: block-end) {
+  .site-header.is-wide .dropdown-list[popover] {
+    position: fixed;
+  }
+}
+
+@media (pointer: coarse) {
+  .site-header.is-wide .site-menu > li > a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 2.75rem;
+  }
+}
+
+/* Touch targets of at least 44 px for the links that sit apart from running text. */
+@media (pointer: coarse) {
+  .link-row a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 2.75rem;
+  }
 }

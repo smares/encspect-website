@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="text-scale" content="scale">
+  <title>Graphical App</title>
+  <meta name="description" content="The Encspect graphical app: a file list for folders, a detail window with structure tree, hex view, findings and graphs, and measurements of decoded audio.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="styles.css">
+  <script src="nav.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="./" aria-label="Encspect home">
+        <img class="brand-mark" src="favicon.svg" alt="" width="32" height="32">
+        <span>Encspect</span>
+      </a>
+      <nav class="site-nav" aria-label="Main">
+        <button type="button" class="menu-button" popovertarget="site-menu" popovertargetaction="toggle" aria-controls="site-menu">
+          <svg class="icon-bars" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+          <span class="sr-only">Menu</span>
+        </button>
+        <ul class="site-menu" id="site-menu" popover="auto">
+          <li><a href="./#features">Features</a></li>
+          <li class="nav-dropdown">
+            <button type="button" class="dropdown-trigger" popovertarget="docs-menu" aria-expanded="false" aria-controls="docs-menu" aria-current="true">Docs <span class="chevron" aria-hidden="true"></span></button>
+            <ul class="dropdown-list" id="docs-menu">
+              <li><a href="formats.html">Formats and Tags</a></li>
+              <li><a href="cli.html">Command Line</a></li>
+              <li><a href="gui.html" aria-current="page">Graphical App</a></li>
+            </ul>
+          </li>
+          <li><a href="./#download">Download</a></li>
+          <li><a href="samples.html">Samples Wanted</a></li>
+          <li><a class="github" href="https://github.com/smares/encspect">GitHub</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-head">
+      <h1 id="page-title">Graphical App</h1>
+      <p class="lead">Browse a folder of audio files, then open any of them to see its structure, the bytes behind every field, its findings and its graphs. It shows the same report as the command-line tool.</p>
+    </section>
+
+    <section class="shot-section">
+      <h2 id="main-title">The main window</h2>
+      <figure class="gallery-fig">
+        <picture class="shot">
+          <source media="(prefers-color-scheme: dark)" srcset="images/main-dark-1440.webp 1440w, images/main-dark-2880.webp 2880w" sizes="(max-width: 72rem) 100vw, 72rem" width="2880" height="1240">
+          <img src="images/main-light-1440.webp" srcset="images/main-light-1440.webp 1440w, images/main-light-2880.webp 2880w" sizes="(max-width: 72rem) 100vw, 72rem" width="2880" height="1240" fetchpriority="high" alt="Encspect's main window with a folder tree and a list of sixteen audio files with format, codec, bitrate, encoder and findings columns">
+        </picture>
+        <figcaption>The main window: a folder tree on the left and a summary of every file in the folder on the right.</figcaption>
+      </figure>
+      <p>The list has one row per file, filled in as the files are analyzed in the background. The columns are:</p>
+      <ul>
+        <li>format and codec, duration, bitrate (VBR or CBR), sample rate and channel mode, and channel layout;</li>
+        <li>the encoder, with its confidence, and &ldquo;Written by&rdquo;, the software that wrote the file around the audio;</li>
+        <li>tags, protection, and the findings counted by severity.</li>
+      </ul>
+      <p>Click a column to sort by it. Durations and bitrates sort as numbers.</p>
+    </section>
+
+    <section class="prose">
+      <h2 id="open-title">Opening files and folders</h2>
+      <ul>
+        <li>Pick a folder in the tree on the left: home, music, desktop and the volumes.</li>
+        <li>Use File, Open Folder (Ctrl+O, or Cmd+O on macOS).</li>
+        <li>Drop files or folders onto the window.</li>
+        <li>Name them on the command line: <code>encspect-gui song.mp3</code> or <code>encspect-gui ~/Music</code>.</li>
+      </ul>
+      <p>Include Subfolders walks the whole tree. Show Only Audio hides files in which no audio was found. Stop cancels a run. A folder seen before fills in at once from a cache of file summaries, and View, Refresh (F5, or Cmd+R on macOS) lists the folder again.</p>
+      <p>The app is the same download as the command-line tool: unpack the <a href="./#download">release archive</a> and start <code>encspect-gui</code>. It is not signed, so the system asks the first time.</p>
+    </section>
+
+    <section class="shot-section">
+      <h2 id="detail-title">The detail window</h2>
+      <figure class="gallery-fig">
+        <picture class="shot">
+          <source media="(prefers-color-scheme: dark)" srcset="images/detail-dark-1280.webp 1280w, images/detail-dark-2560.webp 2560w" sizes="(max-width: 72rem) 100vw, 72rem" width="2560" height="1237">
+          <img src="images/detail-light-1280.webp" srcset="images/detail-light-1280.webp 1280w, images/detail-light-2560.webp 2560w" sizes="(max-width: 72rem) 100vw, 72rem" width="2560" height="1237" loading="lazy" alt="Encspect's detail window with three findings of an MP3 file, the structure tree and the hex view of the selected frame">
+        </picture>
+        <figcaption>The detail window: findings, the structure tree and the hex view with the selected frame marked.</figcaption>
+      </figure>
+      <p>Press Enter or double-click a file to open it. The window is reused for the next file you pick; &ldquo;Open in New Window&rdquo; in the list&rsquo;s context menu keeps one on its file, for comparing two.</p>
+      <ul>
+        <li><strong>Streams</strong> at the top, with codec, coding class, channel layout and, where known, the evidence about the file&rsquo;s history.</li>
+        <li><strong>Structure tree.</strong> Every field with its value, unit, offset and length. Even a stream of 100,000 frames opens at once.</li>
+        <li><strong>Hex view.</strong> Selecting a node marks its bytes, down to single bits.</li>
+        <li><strong>Findings.</strong> Filter by severity; selecting one selects its node.</li>
+        <li><strong>Explanations.</strong> Hover a row for what the field is. The panel under the hex view adds a &ldquo;Learn More&rdquo; link to a background article, such as mid/side stereo or the bit reservoir.</li>
+        <li><strong>Analyze as&hellip;</strong> for a file whose format was not detected or detected wrongly.</li>
+        <li><strong>Export</strong> the report as text or JSON with Ctrl+S (Cmd+S on macOS).</li>
+      </ul>
+    </section>
+
+    <section class="shot-section">
+      <h2 id="graphs-title">Graphs</h2>
+      <figure class="gallery-fig">
+        <picture class="shot">
+          <source media="(prefers-color-scheme: dark)" srcset="images/frame-map-dark-2560.webp" width="2560" height="1517">
+          <img src="images/frame-map-light-2560.webp" width="2560" height="1517" loading="lazy" alt="The Frame Map of a 6:41 MP3 file with one square per frame colored by bitrate">
+        </picture>
+        <figcaption>The Frame Map: one square per frame, here the bitrate of every frame of a joint stereo recording of almost seven minutes.</figcaption>
+      </figure>
+      <p>The Graphs tab draws the stream&rsquo;s series, grouped under the same headings for every format: Summary, Stereo Coding, Block Switching, Coded Bandwidth, Bit Distribution, Prediction and Other.</p>
+      <ul>
+        <li>A quantity can be drawn in several forms, picked above the chart: for example Per Frame, Over Time and Distribution for the bitrate.</li>
+        <li>Frame Map shows each frame as a square.</li>
+        <li>Hover a point for its value. Click it to select the frame in the tree and hex view; selecting a frame in the tree marks it on the graph.</li>
+        <li>Graphs can be used from the keyboard: Tab reaches the list, the view switcher and the chart, and the arrow keys move the cursor.</li>
+        <li>F1 opens the background article for the selected node or graph.</li>
+      </ul>
+    </section>
+
+    <section class="shot-section">
+      <h2 id="audio-title">Decoding and measurements</h2>
+      <figure class="gallery-fig">
+        <picture class="shot">
+          <source media="(prefers-color-scheme: dark)" srcset="images/spectrogram-dark-1280.webp 1280w, images/spectrogram-dark-2560.webp 2560w" sizes="(max-width: 72rem) 100vw, 72rem" width="2560" height="1520">
+          <img src="images/spectrogram-light-1280.webp" srcset="images/spectrogram-light-1280.webp 1280w, images/spectrogram-light-2560.webp 2560w" sizes="(max-width: 72rem) 100vw, 72rem" width="2560" height="1520" loading="lazy" alt="The spectrogram of a decoded MP3 file with a dashed line at its spectral cutoff of 16,078 Hz">
+        </picture>
+        <figcaption>The spectrogram of a decoded file, with its spectral cutoff marked.</figcaption>
+      </figure>
+      <p>Choose Decode Audio in the detail window to decode the file once. That compares the checksums that cover decoded audio (the header then shows <code>Verified: yes</code>, <code>no</code> or <code>unknown</code>) and measures the audio. The Audio entries of the Graphs tab then show:</p>
+      <ul>
+        <li>Waveform, Spectrogram and Spectrum;</li>
+        <li>Loudness and Figures: levels, loudness and true peak, with units.</li>
+      </ul>
+      <p>Decoding reads the whole file, so it takes longer than the analysis. Stop ends it and leaves the analysis as it was. Figures are measurements, not verdicts.</p>
+    </section>
+
+    <section class="prose">
+      <h2 id="look-title">Look and platforms</h2>
+      <ul>
+        <li>Light and dark mode, the accent color and the font follow the system.</li>
+        <li>File dialogs are the system&rsquo;s, and macOS has its menu bar.</li>
+        <li>Windows, macOS and Linux. On Linux the app runs on X11 (under XWayland on a Wayland desktop); native Wayland is experimental and opt-in.</li>
+        <li>Help, About Encspect (the application menu on macOS) shows the version, which is the same string as <code>encspect --version</code>.</li>
+      </ul>
+    </section>
+
+    <section class="prose">
+      <h2 id="more-title">The full reference</h2>
+      <p>Every view, shortcut and setting is described in <a href="https://github.com/smares/encspect/blob/main/docs/gui.md">the graphical app documentation on GitHub</a>. For scripts and batch work, see the <a href="cli.html">command line</a>.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p><a href="formats.html">Formats and tags</a> · <a href="cli.html">Command Line</a> · <a href="gui.html">Graphical App</a> · <a href="samples.html">Samples Wanted</a></p>
+    <p>Encspect is open source under the <a href="https://github.com/smares/encspect/blob/main/LICENSE">MIT License</a>. <a href="https://github.com/smares/encspect">Source, issues and plan on GitHub</a>.</p>
+  </footer>
+</body>
+</html>

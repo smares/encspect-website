@@ -6,74 +6,88 @@
   <meta name="color-scheme" content="light dark">
   <meta name="text-scale" content="scale">
   <title>Formats and Tags</title>
-  <meta name="description" content="The audio formats, containers and tags Encspect 0.3.0 reads, with the versions of each tag format.">
+  <meta name="description" content="The audio formats, containers and tags Encspect 0.4.0 reads, with the versions of each tag format.">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="stylesheet" href="styles.css">
+  <script src="nav.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
-    <a class="brand" href="./" aria-label="Encspect home">
-      <img class="brand-mark" src="favicon.svg" alt="" width="32" height="32">
-      <span>Encspect</span>
-    </a>
-    <nav aria-label="Main">
-      <ul>
-        <li><a href="./#features">Features</a></li>
-        <li><a href="formats.html" aria-current="page">Formats</a></li>
-        <li><a href="./#download">Download</a></li>
-        <li><a href="samples.html">Samples Wanted</a></li>
-        <li><a class="github" href="https://github.com/smares/encspect">GitHub</a></li>
-      </ul>
-    </nav>
+    <div class="header-inner">
+      <a class="brand" href="./" aria-label="Encspect home">
+        <img class="brand-mark" src="favicon.svg" alt="" width="32" height="32">
+        <span>Encspect</span>
+      </a>
+      <nav class="site-nav" aria-label="Main">
+        <button type="button" class="menu-button" popovertarget="site-menu" popovertargetaction="toggle" aria-controls="site-menu">
+          <svg class="icon-bars" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+          <span class="sr-only">Menu</span>
+        </button>
+        <ul class="site-menu" id="site-menu" popover="auto">
+          <li><a href="./#features">Features</a></li>
+          <li class="nav-dropdown">
+            <button type="button" class="dropdown-trigger" popovertarget="docs-menu" aria-expanded="false" aria-controls="docs-menu" aria-current="true">Docs <span class="chevron" aria-hidden="true"></span></button>
+            <ul class="dropdown-list" id="docs-menu">
+              <li><a href="formats.html" aria-current="page">Formats and Tags</a></li>
+              <li><a href="cli.html">Command Line</a></li>
+              <li><a href="gui.html">Graphical App</a></li>
+            </ul>
+          </li>
+          <li><a href="./#download">Download</a></li>
+          <li><a href="samples.html">Samples Wanted</a></li>
+          <li><a class="github" href="https://github.com/smares/encspect">GitHub</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
   <main id="main">
-    <section class="page-head" aria-labelledby="page-title">
+    <section class="page-head">
       <h1 id="page-title">Formats and Tags</h1>
-      <p class="lead">What Encspect 0.3.0 reads. Each container is read at its own level, and each stream by its frames.</p>
+      <p class="lead">What Encspect 0.4.0 reads. Each container is read at its own level, and each stream by its frames.</p>
     </section>
 
-    <section class="prose" aria-labelledby="audio-title">
+    <section class="prose">
       <h2 id="audio-title">Audio formats</h2>
       <dl class="formats">
         <div>
           <dt>MPEG audio</dt>
-          <dd>MP1, MP2 and MP3, with VBR headers, mp3PRO, MP3 Surround and the MPEG-2 multichannel extension. Decoded for measurement (Layers I to III).</dd>
+          <dd>MP1, MP2 and MP3, with VBR headers, mp3PRO, MP3 Surround and the MPEG-2 multichannel extension. Decoded for measurement (Layers I to III). The extension&rsquo;s separate bitstream is not read, so such a stream decodes its two base channels; the data of mp3PRO and MP3 Surround is counted, not read.</dd>
         </div>
         <div>
           <dt>AAC</dt>
-          <dd>In MP4, ADTS and ADIF, including HE-AAC, HE-AAC v2 and xHE-AAC. Not decoded.</dd>
+          <dd>In MP4, ADTS and ADIF, including HE-AAC, HE-AAC v2 and xHE-AAC. Not decoded yet (planned for 0.5).</dd>
         </div>
         <div>
           <dt>Vorbis, Opus, Speex</dt>
-          <dd>In Ogg; Opus also in MP4 and Matroska. Vorbis and Opus are decoded for measurement; Speex is not.</dd>
+          <dd>In Ogg; Vorbis also in Matroska, and Opus also in MP4 and Matroska. All three are decoded for measurement. Opus mapping family 3 and unknown families are not decoded, and lost frames are not concealed. A Vorbis setup header that states a very large codebook is not decoded.</dd>
         </div>
         <div>
           <dt>Musepack</dt>
-          <dd>SV4 to SV8. Not decoded.</dd>
+          <dd>SV4 to SV8. Decoded and measured; the SV4 to SV6 streams that libmpcdec 1.2.6 refuses (a constant bitrate, intensity stereo, blocks of frames) are read at header level and not decoded.</dd>
         </div>
         <div>
           <dt>AC-3 and E-AC-3</dt>
-          <dd>Raw and in MP4, with the object audio that Dolby Atmos adds. Both decoded for measurement.</dd>
+          <dd>Raw and in MP4, with the object audio that Dolby Atmos adds. Both decoded for measurement. Frames at the reduced sample rates (<code>bsid</code> 9 and 10) are read at header level only, and no dynamic range control or downmix is applied.</dd>
         </div>
         <div>
           <dt>DTS</dt>
-          <dd>Core, XCh, X96, XXCH and the DTS-HD extension substreams, raw and in MP4, and DTS-HD files (.dtshd). Not decoded.</dd>
+          <dd>Core, XCh, X96, XXCH, XBR, LBR and XLL, the DTS-HD extension substreams and DTS:X, raw and in MP4, and DTS-HD files (.dtshd). The core is decoded for measurement, except channel arrangements 10 to 15 and user defined ones. The extensions are read, not decoded.</dd>
         </div>
         <div>
           <dt>Windows Media Audio</dt>
-          <dd>Versions 1 and 2, Professional, Lossless and Voice, in ASF. Not decoded.</dd>
+          <dd>Versions 1 and 2, Professional, Lossless and Voice, in ASF. Not decoded yet (planned for 0.5).</dd>
         </div>
         <div>
           <dt>FLAC</dt>
-          <dd>Native and in Ogg. Decoded, verifying the audio's MD5, and measured.</dd>
+          <dd>Native, in Ogg, in MP4 and in Matroska. Decoded, verifying the audio's MD5, and measured.</dd>
         </div>
         <div>
           <dt>WavPack</dt>
-          <dd>Lossless, hybrid and DSD, with correction files. Decoded, verifying the CRCs and the MD5, and measured.</dd>
+          <dd>Lossless, hybrid and DSD, with correction files, and the legacy files of WavPack 1 to 3. Decoded, verifying the CRCs and the MD5, and measured. DSD is decoded to its 1-bit samples for the checks but not measured.</dd>
         </div>
         <div>
           <dt>Monkey's Audio</dt>
@@ -81,7 +95,7 @@
         </div>
         <div>
           <dt>TTA</dt>
-          <dd>Verified by its CRC-32s and decoded for measurement.</dd>
+          <dd>Audio format 1 is verified by its CRC-32s and decoded for measurement. Format 2, a stream stored with a password, is refused.</dd>
         </div>
         <div>
           <dt>Apple Lossless</dt>
@@ -89,29 +103,33 @@
         </div>
         <div>
           <dt>Dolby TrueHD and MLP</dt>
-          <dd>Raw .thd and .mlp files. Decoded, verifying the lossless checks of the audio.</dd>
+          <dd>Raw .thd and .mlp files, and the tracks of MP4 and Matroska. Decoded, verifying the lossless checks of the audio.</dd>
         </div>
         <div>
-          <dt>OptimFROG and TAK</dt>
-          <dd>Header level: their blocks or metadata objects with checksums, the stored WAV header and the encoder settings. Not decoded.</dd>
+          <dt>TAK</dt>
+          <dd>Every frame is read: the count, the header and data CRC-24s and the bitrate. Codecs 2 and 4 at 8, 16 and 24 bits are decoded for measurement, verifying the stream&rsquo;s MD5 where it has one. Codec 0 (TAK 1.0), the experimental and lossyWAV codecs 1 and 3, other bit depths and more than six channels are not decoded.</dd>
+        </div>
+        <div>
+          <dt>OptimFROG</dt>
+          <dd>Header level: its blocks with checksums, the stored WAV header and the encoder settings, with the correction file of a pair. Not decoded.</dd>
         </div>
         <div>
           <dt>PCM in WAV and AIFF</dt>
-          <dd>PCM, floating-point, A-law and mu-law samples, decoded for measurement; other codings at header level.</dd>
+          <dd>PCM, floating-point, A-law and mu-law samples, decoded for measurement. Other codings, such as Microsoft and IMA ADPCM and GSM 6.10, are named by their format tag and read at header level.</dd>
         </div>
       </dl>
     </section>
 
-    <section class="prose" aria-labelledby="containers-title">
+    <section class="prose">
       <h2 id="containers-title">Containers</h2>
       <dl class="formats">
         <div>
           <dt>MP4 and QuickTime</dt>
-          <dd>M4A, M4B, 3GP and QuickTime files.</dd>
+          <dd>M4A, M4B, 3GP and QuickTime files. Protected FLAC and Dolby TrueHD tracks are named, not analyzed.</dd>
         </div>
         <div>
           <dt>Matroska and WebM</dt>
-          <dd>Audio tracks handed to the codec parsers: AAC, AC-3, E-AC-3, DTS, Vorbis, Opus, FLAC, WavPack, Dolby TrueHD, MLP, Apple Lossless and TTA. Video at container level.</dd>
+          <dd>Audio tracks handed to the codec parsers: AAC, AC-3, E-AC-3, DTS, Vorbis, Opus, FLAC, WavPack, Dolby TrueHD, MLP, Apple Lossless, TTA, PCM and MPEG audio, and through A_MS/ACM the codecs that WAV and ASF use. Video at container level.</dd>
         </div>
         <div>
           <dt>Ogg</dt>
@@ -119,11 +137,11 @@
         </div>
         <div>
           <dt>ASF</dt>
-          <dd>WMA, WMV and ASF files.</dd>
+          <dd>WMA, WMV and ASF files, with MP3 and AC-3 audio handed to their parsers. Other codings that have parsers elsewhere (PCM, A-law, mu-law, DTS, MPEG Layer I and II) are named, not analyzed, and routing them is planned for 0.5; E-AC-3 in ASF is not routed.</dd>
         </div>
         <div>
           <dt>WAV and Wave64</dt>
-          <dd>RIFF, RIFX, RF64, BW64 and Wave64, with all their chunks. MPEG audio, AC-3, E-AC-3 and DTS inside are read by their parsers, also as IEC 61937 bursts.</dd>
+          <dd>RIFF, RIFX, RF64, BW64 and Wave64, with all their chunks. MPEG audio, AC-3, E-AC-3 and DTS inside are read by their parsers, also as IEC 61937 bursts, which hold AAC as well.</dd>
         </div>
         <div>
           <dt>AIFF</dt>
@@ -133,7 +151,7 @@
       <p>Streams that a container encrypts or locks are reported with their scheme and DRM systems. Nothing is decrypted.</p>
     </section>
 
-    <section class="prose" aria-labelledby="tags-title">
+    <section class="prose">
       <h2 id="tags-title">Tags</h2>
       <p>Tag formats that can sit in many kinds of file have parsers of their own. They are found by position and structure, never by a signature alone, because short signatures collide with each other and with audio data. A tag that breaks its specification stays in the report, with findings.</p>
       <dl class="formats">
@@ -160,9 +178,9 @@
       </dl>
     </section>
 
-    <section class="prose" aria-labelledby="more-title">
+    <section class="prose">
       <h2 id="more-title">More</h2>
-      <p>Each format has a page of its own in the documentation, with what is read, what is reported and what is not covered: <a href="https://github.com/smares/encspect/blob/v0.3.0/docs/formats/README.md">formats</a> and <a href="https://github.com/smares/encspect/blob/v0.3.0/docs/tags/README.md">tags</a> on GitHub.</p>
+      <p>Each format has a page of its own in the documentation, with what is read, what is reported and what is not covered: <a href="https://github.com/smares/encspect/blob/v0.4.0/docs/formats/README.md">formats</a> and <a href="https://github.com/smares/encspect/blob/v0.4.0/docs/tags/README.md">tags</a> on GitHub.</p>
     </section>
   </main>
 
