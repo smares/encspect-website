@@ -451,11 +451,6 @@ pre {
 }
 
 /* Subpages: samples.html and formats.html */
-.site-header nav a[aria-current="page"] {
-  color: var(--text);
-  text-decoration: underline;
-}
-
 main > .page-head {
   padding-block-end: 1rem;
 }
@@ -588,14 +583,8 @@ main > .page-head {
 }
 
 .dropdown-trigger:hover,
-.dropdown-trigger[aria-expanded="true"],
-.dropdown-trigger[aria-current] {
+.dropdown-trigger[aria-expanded="true"] {
   color: var(--text);
-}
-
-.dropdown-trigger[aria-current] {
-  text-decoration: underline;
-  text-underline-offset: 0.15em;
 }
 
 .icon-bars {
