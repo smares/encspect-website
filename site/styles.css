@@ -101,6 +101,16 @@ p {
   inset-block-start: 1rem;
 }
 
+/* One measure for running text everywhere: paragraphs, lists, captions, code blocks and the descriptions of
+   definition lists end at 70 characters (the lead paragraphs, in a larger font, at 60). Card grids keep the full width. */
+main :where(p, ul, ol, figcaption, dd, .code) {
+  max-inline-size: 70ch;
+}
+
+.cards {
+  max-inline-size: none;
+}
+
 /* Page width: content up to 72rem, with a gutter that never drops below 1rem. */
 .header-inner,
 main > section,
@@ -191,6 +201,10 @@ main > section[id] {
 
 .hero {
   text-align: center;
+}
+
+.hero :where(p) {
+  margin-inline: auto;
 }
 
 .hero h1 {
@@ -296,13 +310,14 @@ h2 {
 }
 
 figcaption {
-  max-inline-size: 70ch;
   margin-block-start: 0.75rem;
   color: var(--muted);
 }
 
 .formats {
   display: grid;
+  /* The term column, the gap and the 70 characters of the description, so the rules under the rows end with the text. */
+  max-inline-size: calc(9rem + 1.5rem + 70ch);
   gap: 1rem;
   margin: 0 0 1.5rem;
 }
@@ -328,10 +343,6 @@ figcaption {
   .formats div {
     grid-template-columns: minmax(0, 1fr);
   }
-}
-
-#download > p {
-  max-inline-size: 70ch;
 }
 
 .code {
@@ -459,14 +470,6 @@ main > .page-head {
   margin-inline: 0;
 }
 
-.prose > :is(p, ul, ol, .formats) {
-  max-inline-size: 70ch;
-}
-
-.prose .formats {
-  max-inline-size: none;
-}
-
 .prose :is(ul, ol) {
   padding-inline-start: 1.4rem;
 }
@@ -515,6 +518,10 @@ main > .page-head {
 }
 
 /* Command Line and Graphical App pages */
+.formats.wide {
+  max-inline-size: calc(12rem + 1.5rem + 70ch);
+}
+
 .formats.wide div {
   grid-template-columns: minmax(0, 12rem) minmax(0, 1fr);
 }
@@ -531,10 +538,6 @@ main > .page-head {
   font-size: 0.9em;
 }
 
-.shot-section > :is(p, ul) {
-  max-inline-size: 70ch;
-}
-
 .shot-section ul {
   padding-inline-start: 1.4rem;
 }
@@ -545,15 +548,6 @@ main > .page-head {
 
 .gallery-fig {
   margin: 0 0 1.5rem;
-}
-
-.prose .code,
-.prose .code pre {
-  max-inline-size: 70ch;
-}
-
-.prose .code pre {
-  max-inline-size: none;
 }
 
 /* Header navigation. Collapsed by default, and without script: one Menu button opens the list as a popover.
