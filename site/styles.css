@@ -766,8 +766,10 @@ main > .page-head {
 }
 
 @supports (position-area: block-end) {
+  /* Fixed, as the popover's own default: with absolute the containing block is the page's first screen, so on a
+     scrolled page the block-end space looks too small and flip-block opened the list upward, off the screen. */
   .site-header.is-wide .dropdown-list[popover] {
-    position: absolute;
+    position: fixed;
     position-area: block-end span-inline-end;
     position-try-fallbacks: flip-block, flip-inline;
     inset: auto;
