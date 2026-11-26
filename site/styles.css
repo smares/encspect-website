@@ -183,6 +183,12 @@ main > section + section {
   border-block-start: 1px solid var(--border);
 }
 
+/* A jump to a section lands with its top border under the bar rather than 1rem below it, so the separator above the
+   section's heading is not left showing; the section's own padding keeps the heading clear of the bar. */
+main > section[id] {
+  scroll-margin-block-start: calc(-1rem - 1px);
+}
+
 .hero {
   text-align: center;
 }
@@ -766,8 +772,10 @@ main > .page-head {
 }
 
 @supports (position-area: block-end) {
+  /* Fixed, as the popover's own default: with absolute the containing block is the page's first screen, so on a
+     scrolled page the block-end space looks too small and flip-block opened the list upward, off the screen. */
   .site-header.is-wide .dropdown-list[popover] {
-    position: absolute;
+    position: fixed;
     position-area: block-end span-inline-end;
     position-try-fallbacks: flip-block, flip-inline;
     inset: auto;
